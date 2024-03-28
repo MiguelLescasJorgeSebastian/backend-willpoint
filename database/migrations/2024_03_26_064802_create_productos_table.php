@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('precio_venta');
             $table->integer('stock');
             $table->string('imagen');
-            $table->integer('codigo_barras')->unique()-> nullable();
+            $table->integer('codigo_barras')->unique()->nullable();
+            $table->string('clavesat')->nullable();
             $table->timestamps();
             $table->foreignId('proveedor_id')->constrained('proveedores')->onUpdate('cascade')->restrictOnDelete();
         });

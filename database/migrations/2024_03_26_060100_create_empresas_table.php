@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proveedores', function (Blueprint $table) {
+        Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->integer('telefono');
-            $table->string('direccion');
-            $table->string('email')->unique();
-            $table->string('imagen');
-            $table->foreignId('empresa_id')->constrained('empresas')->onUpdate('cascade')->restrictOnDelete();
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proveedors');
+        Schema::dropIfExists('empresas');
     }
 };

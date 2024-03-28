@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proveedores', function (Blueprint $table) {
+        Schema::create('empleados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->integer('telefono');
-            $table->string('direccion');
-            $table->string('email')->unique();
+            $table->email('email')->unique();
+            $table->string('password');
             $table->string('imagen');
-            $table->foreignId('empresa_id')->constrained('empresas')->onUpdate('cascade')->restrictOnDelete();
+            $table->enum('rol', ['gerente', 'encargo_almacen', 'cajero', 'encargado_compras']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proveedors');
+        Schema::dropIfExists('empleados');
     }
 };
