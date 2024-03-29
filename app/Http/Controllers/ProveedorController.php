@@ -21,27 +21,48 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        $proveedor = Proveedor::create($request->all());
-        $proveedor->save();
-        return response()->json($proveedor);
+        try{
+            $request->validate([
+                'nombre' => 'required|unique:proveedors',
+                'telefono' => 'required',
+                'direccion' => 'required',
+                'email' => 'required|email',
+                'empresa_id' => 'required|exists:empresas,id'
+            ]);
+            $proveedor = Proveedor::create($request->all());
+            return response()->json($proveedor);
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Error al crear el proveedor',
+                'error' => $e->getMessage()
+            ], 400);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Proveedor $proveedor)
+    public function update(Request $request,$id)
     {
-        $proveedor = Proveedor::findOrFail($request->id);
-        $proveedor->update($request->all());
-        return response()->json($proveedor);
+        try{
+            $proveedor = Proveedor::findOrFail($id);
+            $proveedor->update($request->all());
+            return response()->json($proveedor);
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Error al actualizar el proveedor',
+                'error' => $e->getMessage()
+            ], 400);
+        }
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Proveedor $proveedor)
+    public function destroy($id)
     {
+        $proveedor = Proveedor::findOrFail($id);
         $proveedor->delete();
-
     }
 }

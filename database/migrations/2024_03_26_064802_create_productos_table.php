@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('fecha_caducidad');
             $table->string('nombre');
-            $table->integer('precio_compra');
-            $table->integer('precio_venta');
+            $table->decimal('precio_compra', 10, 2);
+            $table->decimal('precio_venta', 10, 2);
             $table->integer('stock');
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->integer('codigo_barras')->unique()->nullable();
             $table->string('clavesat')->nullable();
             $table->timestamps();
