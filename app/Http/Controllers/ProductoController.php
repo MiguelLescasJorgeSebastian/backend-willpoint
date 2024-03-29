@@ -23,28 +23,50 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $producto = Producto::create($request->all());
-        $producto->save();
+        try{
+            $request->validate([
+                'nombre' => 'required',
+                'precio_compra' => 'required',
+                'precio_venta' => 'required',
+                'stock' => 'required',
+                'fecha_caducidad' => 'required',
+                'proveedor_id' => 'required|exists:proveedors,id'
+            ]);
+            $producto = Producto::create($request->all());
+            return response()->json($producto);
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Error al crear el producto',
+                'error' => $e->getMessage()
+            ], 400);
+        }
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, $id)
     {
-        $producto = Producto::findOrFail($request->id);
+        try{
+            $producto = Producto::findOrFail($id);
         $producto->update($request->all());
         return response()->json($producto);
+
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Error al actualizar el producto',
+                'error' => $e->getMessage()
+            ], 400);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $producto = Producto::findOrFail($request->id);
+        $producto = Producto::findOrFail($id);
         $producto->delete();
-        return response()->json($producto);
     }
 }

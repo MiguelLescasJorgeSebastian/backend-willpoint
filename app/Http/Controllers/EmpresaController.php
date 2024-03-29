@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EmpresaController extends Controller
 {
@@ -12,27 +13,45 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        return Empresa::all();
+        $empresas = Empresa::all();
+        return response()->json($empresas);
+
     }
     public function store(Request $request)
     {
-
-        $empresa = new Empresa();
-        $empresa->nombre = $request->nombre;
-        $empresa->save();
+        try{
+            $request->validate([
+                'nombre' => 'required|unique:empresas',
+            ]);
+            $empresa = Empresa::create($request->all());
+            return response()->json($empresa, 201);
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Error al crear la empresa',
+                'error' => $e->getMessage()
+            ], 400);
+        }
     }
 
-    public function update(Request $request, Empresa $empresa)
+    public function update($id, Request $request)
     {
-        $empresa = Empresa::findOrFail($request->id);
-        $empresa->update($request->all());
+        try{
+            $empresa = Empresa::findOrFail($id);
+            $request->validate([
+                'nombre' => ['required',Rule::unique('empresas')->ignore($empresa)]
+            ]);
+            $empresa->update($request->all());
+        }catch(\Exception $e){
+        }
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Empresa $empresa)
+    public function destroy($id)
     {
+        $empresa = Empresa::findOrFail($id);
         $empresa->delete();
     }
 }
