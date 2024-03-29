@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->integer('telefono');
-            $table->email('email')->unique();
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('imagen');
             $table->enum('rol', ['gerente', 'encargo_almacen', 'cajero', 'encargado_compras']);

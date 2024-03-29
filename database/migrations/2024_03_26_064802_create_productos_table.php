@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('codigo_barras')->unique()->nullable();
             $table->string('clavesat')->nullable();
             $table->timestamps();
-            $table->foreignId('proveedor_id')->constrained('proveedores')->onUpdate('cascade')->restrictOnDelete();
+            $table->foreignId('proveedor_id')->constrained('proveedors')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

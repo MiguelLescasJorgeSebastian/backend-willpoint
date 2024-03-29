@@ -4,23 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+
+    */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $productos = Producto::all();
+        return response()->json($productos);
     }
 
     /**
@@ -28,23 +23,9 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $producto = Producto::create($request->all());
+        $producto->save();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Producto $producto)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Producto $producto)
-    {
-        //
     }
 
     /**
@@ -52,14 +33,18 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        $producto = Producto::findOrFail($request->id);
+        $producto->update($request->all());
+        return response()->json($producto);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producto $producto)
+    public function destroy(Request $request)
     {
-        //
+        $producto = Producto::findOrFail($request->id);
+        $producto->delete();
+        return response()->json($producto);
     }
 }

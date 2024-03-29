@@ -12,15 +12,8 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $proveedores = Proveedor::all();
+        return response()->json($proveedores);
     }
 
     /**
@@ -28,23 +21,9 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Proveedor $proveedor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Proveedor $proveedor)
-    {
-        //
+        $proveedor = Proveedor::create($request->all());
+        $proveedor->save();
+        return response()->json($proveedor);
     }
 
     /**
@@ -52,7 +31,9 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, Proveedor $proveedor)
     {
-        //
+        $proveedor = Proveedor::findOrFail($request->id);
+        $proveedor->update($request->all());
+        return response()->json($proveedor);
     }
 
     /**
@@ -60,6 +41,7 @@ class ProveedorController extends Controller
      */
     public function destroy(Proveedor $proveedor)
     {
-        //
+        $proveedor->delete();
+
     }
 }

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proveedores', function (Blueprint $table) {
+        Schema::create('proveedors', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->string('direccion');
             $table->string('email')->unique();
-            $table->string('imagen');
-            $table->foreignId('empresa_id')->constrained('empresas')->onUpdate('cascade')->restrictOnDelete();
+            $table->string('imagen')->nullable();
+            $table->foreignId('empresa_id')->constrained('empresas')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

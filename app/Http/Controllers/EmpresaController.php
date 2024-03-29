@@ -12,47 +12,20 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        //
+        return Empresa::all();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $empresa = new Empresa();
+        $empresa->nombre = $request->nombre;
+        $empresa->save();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Empresa $empresa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Empresa $empresa)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Empresa $empresa)
     {
-        //
+        $empresa = Empresa::findOrFail($request->id);
+        $empresa->update($request->all());
     }
 
     /**
@@ -60,6 +33,6 @@ class EmpresaController extends Controller
      */
     public function destroy(Empresa $empresa)
     {
-        //
+        $empresa->delete();
     }
 }

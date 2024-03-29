@@ -18,7 +18,7 @@ class CreatePedidosTable extends Migration
             $table->time('Hora');
             $table->foreignId('ProductoID')->constrained('productos');
             $table->integer('Cantidad');
-            $table->foreignId('ProveedorID')->constrained('proveedores');
+            $table->foreignId('ProveedorID')->constrained('proveedors');
             $table->decimal('MontoAprox', 8, 2);
             $table->decimal('Impuesto', 8, 2);
             $table->enum('Estado', ['Solicitud', 'Proceso', 'Entregado']);
