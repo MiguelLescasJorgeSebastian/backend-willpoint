@@ -16,6 +16,9 @@ return new class extends Migration
             $table->enum('tipo', ['venta', 'compra']);
             $table->decimal('monto', 8, 2);
             $table->text('descripcion')->nullable();
+            $table->foreignId('venta_id')->nullable()->constrained('ventas')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('compra_id')->nullable()->constrained('compras')->onUpdate('cascade')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
