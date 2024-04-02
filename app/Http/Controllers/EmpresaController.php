@@ -32,6 +32,7 @@ class EmpresaController extends Controller
             ], 400);
         }
     }
+    
 
     public function update($id, Request $request)
     {

@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('detalles__ventas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('VentaID')->constrained('ventas');
             $table->foreignId('ProductoID')->constrained('productos');
-            $table->decimal('PrecioCompra', 8, 2);
-            $table->decimal('PrecioVenta', 8, 2);
             $table->integer('Cantidad');
-            $table->enum('MetodoPago', ['Efectivo', 'Tarjeta', 'Transferencia', 'Cheque']);
-            $table->decimal('Impuestos', 8, 2);
-            $table->decimal('Descuento', 8, 2)->nullable();
+            $table->decimal('Precio', 8, 2);
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('detalles__ventas');
     }
 };

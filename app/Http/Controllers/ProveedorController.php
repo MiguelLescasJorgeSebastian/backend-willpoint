@@ -40,6 +40,15 @@ class ProveedorController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $proveedor = Proveedor::findOrFail($id);
+        return response()->json($proveedor);
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request,$id)

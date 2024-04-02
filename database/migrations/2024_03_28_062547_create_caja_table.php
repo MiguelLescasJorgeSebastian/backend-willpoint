@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('apertura_de_caja', function (Blueprint $table) {
+        Schema::create('caja', function (Blueprint $table) {
             $table->id();
-            $table->integer('IDMovimiento');
             $table->timestamp('Fecha');
             $table->time('HoraApertura');
             $table->foreignId('EmpleadoID')->constrained('empleados');

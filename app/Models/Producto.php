@@ -21,4 +21,15 @@ class Producto extends Model
         'proveedor_id',
 
     ];
+
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class);
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+
 }

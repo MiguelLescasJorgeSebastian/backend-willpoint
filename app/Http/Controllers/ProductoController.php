@@ -30,6 +30,7 @@ class ProductoController extends Controller
                 'precio_venta' => 'required',
                 'stock' => 'required',
                 'fecha_caducidad' => 'required',
+                'categoria_id' => 'nullable|exists:categorias,id',
                 'proveedor_id' => 'required|exists:proveedors,id'
             ]);
             $producto = Producto::create($request->all());
@@ -41,6 +42,15 @@ class ProductoController extends Controller
             ], 400);
         }
 
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $producto = Producto::findOrFail($id);
+        return response()->json($producto);
     }
 
     /**

@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Empleado;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
-class EmpleadoController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $empleados = Empleado::all();
-        return response()->json($empleados);
-
+        $categorias = Categoria::all();
+        return response()->json($categorias);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -26,16 +24,13 @@ class EmpleadoController extends Controller
         try{
             $request->validate([
                 'nombre' => 'required',
-                'telefono' => 'required',
-                'email' => 'required|unique:empleados',
-                'password' => 'required',
-                'rol' => 'required'
+                'claveSat' => 'required'
             ]);
-            $empleado = Empleado::create($request->all());
-            return response()->json($empleado, 201);
+            $categoria = Categoria::create($request->all());
+            return response()->json($categoria);
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error al crear el empleado',
+                'message' => 'Error al crear la categoria',
                 'error' => $e->getMessage()
             ], 400);
         }
@@ -46,10 +41,9 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        $empleado = Empleado::findOrFail($id);
-        return response()->json($empleado);
+        $categoria = Categoria::findOrFail($id);
+        return response()->json($categoria);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -57,12 +51,12 @@ class EmpleadoController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $empleado = Empleado::findOrFail($id);
-            $empleado->update($request->all());
-            return response()->json($empleado);
+            $categoria = Categoria::findOrFail($id);
+            $categoria->update($request->all());
+            return response()->json($categoria);
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error al actualizar el empleado',
+                'message' => 'Error al actualizar la categoria',
                 'error' => $e->getMessage()
             ], 400);
         }
@@ -74,14 +68,14 @@ class EmpleadoController extends Controller
     public function destroy($id)
     {
         try{
-            $empleado = Empleado::findOrFail($id);
-            $empleado->delete();
+            $categoria = Categoria::findOrFail($id);
+            $categoria->delete();
             return response()->json([
-                'message' => 'Empleado eliminado'
+                'message' => 'Categoria eliminada'
             ]);
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error al eliminar el empleado',
+                'message' => 'Error al eliminar la categoria',
                 'error' => $e->getMessage()
             ], 400);
         }

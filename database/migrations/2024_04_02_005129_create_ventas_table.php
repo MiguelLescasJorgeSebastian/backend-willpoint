@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('TicketID')->constrained('tickets');
-            $table->foreignId('EmpleadoID')->constrained('empleados');
-            $table->timestamp('Fecha');
-            $table->time('Hora');
-            $table->decimal('Total', 8, 2);
+            $table->foreignId('cliente_id')->constrained('clientes')->onUpdate('cascade')->onDelete('cascade');
+            $table->decimal('total', 10, 2);
+            $table->timestamp('fecha');
+            $table->integer('puntos_ganados');
             $table->timestamps();
         });
     }

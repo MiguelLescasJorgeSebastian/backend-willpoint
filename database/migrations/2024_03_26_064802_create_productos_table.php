@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_caducidad');
             $table->string('nombre');
             $table->decimal('precio_compra', 10, 2);
             $table->decimal('precio_venta', 10, 2);
             $table->integer('stock');
             $table->string('imagen')->nullable();
-            $table->integer('codigo_barras')->unique()->nullable();
-            $table->string('clavesat')->nullable();
+            $table->integer('codigo_barras')->nullable();
             $table->timestamps();
-            $table->foreignId('proveedor_id')->constrained('proveedors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('categoria_id')->constrained('categorias')->onUpdate('cascade')->onDelete('cascade')->nullable();
         });
     }
 

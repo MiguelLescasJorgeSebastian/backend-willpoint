@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 
-Route::resource('/productos', ProductoController::class);
-Route::resource('/proveedores', ProveedorController::class);
-Route::resource('/empresas', EmpresaController::class);
+Route::apiResource('/productos', ProductoController::class);
+Route::apiResource('/proveedores', ProveedorController::class);
+Route::apiResource('/empresas', EmpresaController::class);
 
 

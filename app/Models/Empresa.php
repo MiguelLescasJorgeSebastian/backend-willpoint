@@ -11,4 +11,7 @@ class Empresa extends Model
     protected $fillable = [
         'nombre',
     ];
+    public function proveedores(){
+        return $this->hasMany(Proveedor::class);
+    }
 }
